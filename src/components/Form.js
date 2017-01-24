@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
 
 class Form extends Component {
-  postNewURL(e){
+  postNewFolder(e, folderName){
     e.preventDefault()
-    fetch(`/urls`, {
+    fetch(`/api/folders`, {
       method: 'post',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        shortURL: "newURL",
-        realURL:"www.ohyeah.com",
-        folder: "Cool Links"
+        folderName
       })
     })
     .then((res)=>{
@@ -28,11 +26,11 @@ class Form extends Component {
         <form>
           <label>
             New Folder
-            <input type="text"/>
+            <input type="text" ref="folderInput"/>
           </label>
 
           <button
-          onClick={(e)=>{this.postNewURL(e)}}
+          onClick={(e)=>{this.postNewFolder(e, this.refs.folderInput.value)}}
           >
             Save New Folder
           </button>

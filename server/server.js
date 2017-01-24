@@ -7,8 +7,6 @@ const md5 = require('md5');
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 
-let folders = [
-]
 
 let urls=[{
   shortURL: "shortURL!!",
@@ -41,10 +39,9 @@ app.get('/api/folders', (request, response) => {
 });
 
 app.post('/api/folders', (request, response) => {
-  const { folderName} = request.body;
+  const { folderName } = request.body;
   const id = md5(folderName);
   app.locals.folders[id] = folderName;
-  console.log(id, folderName);
   response.json({ id, folderName})
 })
 
