@@ -4,11 +4,13 @@
   "private": true,
   "proxy": "http://localhost:3001",
   "devDependencies": {
+    "nodemon": "^1.11.0",
     "react-scripts": "0.8.5"
   },
   "dependencies": {
     "body-parser": "^1.16.0",
     "express": "^4.14.0",
+    "md5": "^2.2.1",
     "react": "^15.4.2",
     "react-dom": "^15.4.2"
   },
@@ -16,6 +18,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "dev": "nodemon server/server.js"
   }
 }
