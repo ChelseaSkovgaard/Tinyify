@@ -1,6 +1,26 @@
 import React, { Component } from 'react';
 
 class Form extends Component {
+  postNewURL(e){
+    e.preventDefault()
+    fetch(`/urls`, {
+      method: 'post',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        shortURL: "newURL",
+        realURL:"www.ohyeah.com"
+      })
+    })
+    .then((res)=>{
+      return res.json()
+    })
+    .then((res)=>{
+      console.log(res);
+    })
+  }
   render() {
     return (
       <div className="Form">
@@ -10,7 +30,9 @@ class Form extends Component {
             <input type="text"/>
           </label>
 
-          <button>
+          <button
+          onClick={(e)=>{this.postNewURL(e)}}
+          >
             Save New Folder
           </button>
         </form>

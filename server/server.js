@@ -7,14 +7,42 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 
 let urls=[{
-  shortURL: '/shortURL!',
-  realURL: 'www.google.com'
+  shortURL: "shortURL!",
+  realURL: "www.google.com"
+},
+{
+  shortURL: "shortURL2",
+  realURL: "www.turing.io"
+},
+{
+  shortURL: "shortURL3",
+  realURL: "www.react.com"
+},
+{
+  shortURL: "shortURL4",
+  realURL:"www.funtimesturing.com"
 }]
 
 app.get('/urls', (request, response) => {
 
-  response.send(urls);
+  response.send(JSON.stringify(urls));
 });
+
+app.post('/urls', (request, response) => {
+
+    //   var user = new User(req.body);
+    //
+    //   user.save(function(err) {
+    //     if (err) {
+    //       res.send(err)
+    //     }
+    //     User.find(function(err, users) {
+    //       res.send('success!')
+    //     })
+    //   })
+    urls.push(request.body)
+    console.log(request.body);
+})
 
 app.use(express.static(path.resolve(__dirname, '..', 'build')));
 
