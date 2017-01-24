@@ -11,7 +11,8 @@ class Form extends Component {
       },
       body: JSON.stringify({
         shortURL: "newURL",
-        realURL:"www.ohyeah.com"
+        realURL:"www.ohyeah.com",
+        folder: "Cool Links"
       })
     })
     .then((res)=>{

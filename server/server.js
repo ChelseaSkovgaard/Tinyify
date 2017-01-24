@@ -2,48 +2,61 @@ var express = require('express')
 var app = express()
 var bodyParser = require('body-parser');
 const path = require('path');
+const md5 = require('md5');
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 
+let folders = [
+]
+
 let urls=[{
-  shortURL: "shortURL!",
-  realURL: "www.google.com"
+  shortURL: "shortURL!!",
+  realURL: "www.google.com",
+  folder: "Cool Links"
 },
 {
   shortURL: "shortURL2",
-  realURL: "www.turing.io"
+  realURL: "www.turing.io",
+  folder: "School"
 },
 {
   shortURL: "shortURL3",
-  realURL: "www.react.com"
+  realURL: "www.react.com",
+  folder: "Codez"
 },
 {
   shortURL: "shortURL4",
-  realURL:"www.funtimesturing.com"
+  realURL:"www.funtimesturing.com",
+  folder: "School"
 }]
 
-app.get('/urls', (request, response) => {
+app.locals.folders = {
+  0: "initial folder",
+  1: "second folder"
+};
 
-  response.send(JSON.stringify(urls));
+app.get('/api/folders', (request, response) => {
+  response.json(app.locals.folders);
 });
 
-app.post('/urls', (request, response) => {
-
-    //   var user = new User(req.body);
-    //
-    //   user.save(function(err) {
-    //     if (err) {
-    //       res.send(err)
-    //     }
-    //     User.find(function(err, users) {
-    //       res.send('success!')
-    //     })
-    //   })
-    urls.push(request.body)
-    console.log(request.body);
+app.post('/api/folders', (request, response) => {
+  const { folderName} = request.body;
+  const id = md5(folderName);
+  app.locals.folders[id] = folderName;
+  console.log(id, folderName);
+  response.json({ id, folderName})
 })
 
+app.get('/api/folders/:id', (request, response) => {
+  const {id} = request.params
+  const folder = app.locals.folders[id]
+
+  if(!folder){
+    response.sendStatus(404);
+  }
+  response.json({id, folder})
+})
 app.use(express.static(path.resolve(__dirname, '..', 'build')));
 
 app.get('/', (req, res) => {
