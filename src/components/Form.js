@@ -32,15 +32,17 @@ class Form extends Component {
         <form>
           <label>
             Choose Folder
-            <select>
+            <select ref='folderOptions'>
               {folderOptions}
             </select>
           </label>
           <label>
             URL
-            <input type="text"/>
+            <input type="text" ref="URLTitle"/>
           </label>
-          <button>
+          <button
+            onClick={(e)=>{this.props.handleSaveURL(e, this.refs.folderOptions.value, this.refs.URLTitle.value)}}
+          >
             Submit
           </button>
         </form>

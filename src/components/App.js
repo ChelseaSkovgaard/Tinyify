@@ -46,12 +46,17 @@ class App extends Component {
       console.log(res);
     })
   }
+  saveNewURL(e, folderName, URLTitle){
+    e.preventDefault()
+    console.log(folderName, URLTitle);
+  }
   render() {
     return (
       <div className="App">
         <h1> JetFuel</h1>
         <Form
           handleSaveFolder={(e, folderName)=>{this.postNewFolder(e, folderName)}}
+          handleSaveURL={(e, folderName, URLTitle)=>{this.saveNewURL(e, folderName, URLTitle)}}
           folders={this.state.folders}
         />
         <LinkList />
