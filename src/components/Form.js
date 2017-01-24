@@ -1,25 +1,17 @@
 import React, { Component } from 'react';
 
 class Form extends Component {
-  postNewFolder(e, folderName){
-    e.preventDefault()
-    fetch(`/api/folders`, {
-      method: 'post',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        folderName
+
+  componentDidMount(){
+    fetch(`/api/folders`)
+      .then((res)=>{
+        return res.json()
       })
-    })
-    .then((res)=>{
-      return res.json()
-    })
-    .then((res)=>{
-      console.log(res);
-    })
-  }
+      .then((res)=>{
+        this.setState({urls:res});
+        console.log(res);
+      });
+    }
   render() {
     return (
       <div className="Form">
@@ -30,7 +22,7 @@ class Form extends Component {
           </label>
 
           <button
-          onClick={(e)=>{this.postNewFolder(e, this.refs.folderInput.value)}}
+          onClick={(e)=>{this.props.handleSaveFolder(e, this.refs.folderInput.value)}}
           >
             Save New Folder
           </button>

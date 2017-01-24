@@ -5,11 +5,39 @@ import Form from "./Form";
 import LinkList from "./LinkList";
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      folders: {
+
+      },
+      selectedFolder: ''
+    }
+  }
+  postNewFolder(e, folderName){
+    e.preventDefault()
+    fetch(`/api/folders`, {
+      method: 'post',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        folderName
+      })
+    })
+    .then((res)=>{
+      return res.json()
+    })
+    .then((res)=>{
+      console.log(res);
+    })
+  }
   render() {
     return (
       <div className="App">
         <h1> JetFuel</h1>
-        <Form />
+        <Form handleSaveFolder={(e, folderName)=>{this.postNewFolder(e, folderName)}}/>
         <LinkList />
       </div>
     );
