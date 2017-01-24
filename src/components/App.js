@@ -46,9 +46,24 @@ class App extends Component {
       console.log(res);
     })
   }
-  saveNewURL(e, folderName, URLTitle){
+  saveNewURL(e, folderID, URL){
     e.preventDefault()
-    console.log(folderName, URLTitle);
+    fetch(`/api/folders/${folderID}`, {
+      method: 'post',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        actualurl: URL
+      })
+    })
+    .then((res)=>{
+      return res.json()
+    })
+    .then((res)=>{
+      console.log(res);
+    })
   }
   render() {
     return (
@@ -56,7 +71,7 @@ class App extends Component {
         <h1> JetFuel</h1>
         <Form
           handleSaveFolder={(e, folderName)=>{this.postNewFolder(e, folderName)}}
-          handleSaveURL={(e, folderName, URLTitle)=>{this.saveNewURL(e, folderName, URLTitle)}}
+          handleSaveURL={(e, folderID, URL)=>{this.saveNewURL(e, folderID, URL)}}
           folders={this.state.folders}
         />
         <LinkList />

@@ -34,6 +34,18 @@ app.locals.folders = {
   1: "second folder"
 };
 
+app.locals.urls = {
+  0:{
+    folderid: "1",
+    shorturl: 0,
+    actualurl: 'www.google.com',
+    date: Date.now(),
+    clickCount: 0
+  }
+}
+
+app.locals.shortURL = 0;
+
 app.get('/api/folders', (request, response) => {
   response.json(app.locals.folders);
 });
@@ -54,6 +66,32 @@ app.get('/api/folders/:id', (request, response) => {
   }
   response.json({id, folder})
 })
+
+app.post('/api/folders/:folderid', (request,response) => {
+  const {folderid} = request.params
+  const {actualurl} = request.body
+
+  const id = md5(actualurl);
+  app.locals.urls[id] = {
+    folderid,
+    actualurl,
+    shorturl: app.locals.shortURL,
+    date: Date.now(),
+    clickCount: 0
+  }
+
+  app.locals.shortURL++
+
+  response.json(app.locals.urls)
+});
+
+app.get('/api/folders/:folderid/:shorturl', (request, response) => {
+  const {folderid, shorturl} = request.params
+  const url = app.locals.urls[shorturl]
+
+  response.json(url)
+})
+
 app.use(express.static(path.resolve(__dirname, '..', 'build')));
 
 app.get('/', (req, res) => {

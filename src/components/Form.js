@@ -38,10 +38,10 @@ class Form extends Component {
           </label>
           <label>
             URL
-            <input type="text" ref="URLTitle"/>
+            <input type="text" ref="URL"/>
           </label>
           <button
-            onClick={(e)=>{this.props.handleSaveURL(e, this.refs.folderOptions.value, this.refs.URLTitle.value)}}
+            onClick={(e)=>{this.props.handleSaveURL(e, this.refs.folderOptions.value, this.refs.URL.value)}}
           >
             Submit
           </button>
