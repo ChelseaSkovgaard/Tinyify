@@ -8,18 +8,10 @@ class LinkList extends Component {
     }
   }
   componentDidMount(){
-    fetch(`/api/folders`)
-      .then((res)=>{
-        console.log(res);
-        return res.json()
-      })
-      .then((res)=>{
-        this.setState({urls:res});
-        console.log(res);
-      });
+
   }
   render() {
-  
+
     return (
       <div className="LinkList">
 

@@ -14,6 +14,19 @@ class App extends Component {
       selectedFolder: ''
     }
   }
+  componentDidMount(){
+    fetch(`/api/folders`)
+      .then((res)=>{
+        return res.json()
+      })
+      .then((res)=>{
+        this.setState({
+          folders:res
+          }
+        );
+        console.log(res);
+      });
+  }
   postNewFolder(e, folderName){
     e.preventDefault()
     fetch(`/api/folders`, {
@@ -37,7 +50,10 @@ class App extends Component {
     return (
       <div className="App">
         <h1> JetFuel</h1>
-        <Form handleSaveFolder={(e, folderName)=>{this.postNewFolder(e, folderName)}}/>
+        <Form
+          handleSaveFolder={(e, folderName)=>{this.postNewFolder(e, folderName)}}
+          folders={this.state.folders}
+        />
         <LinkList />
       </div>
     );

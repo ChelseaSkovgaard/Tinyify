@@ -3,16 +3,18 @@ import React, { Component } from 'react';
 class Form extends Component {
 
   componentDidMount(){
-    fetch(`/api/folders`)
-      .then((res)=>{
-        return res.json()
-      })
-      .then((res)=>{
-        this.setState({urls:res});
-        console.log(res);
-      });
-    }
+  }
   render() {
+    let folderOptions;
+    if(this.props.folders){
+
+      let folderKeysArray = Object.keys(this.props.folders)
+
+      console.log(folderKeysArray);
+      folderOptions = folderKeysArray.map((folderKey, i)=>{
+          return <option key={i} value={`${folderKey}`}>{`${this.props.folders[folderKey]}`}</option>
+      })
+    }
     return (
       <div className="Form">
         <form>
@@ -31,7 +33,7 @@ class Form extends Component {
           <label>
             Choose Folder
             <select>
-              <option value="option1"> Option1 </option>
+              {folderOptions}
             </select>
           </label>
           <label>
