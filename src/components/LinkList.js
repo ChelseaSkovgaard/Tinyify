@@ -25,6 +25,7 @@ class LinkList extends Component {
     }
     return (
       <div className="LinkList">
+        <h3> SAVED LINKS </h3>
         {folders}
       </div>
     );

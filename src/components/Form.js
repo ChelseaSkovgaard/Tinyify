@@ -28,6 +28,7 @@ class Form extends Component {
             SAVE
           </button>
         </form>
+        <h3> Save & Shorten a Link </h3>
         <form className="choose-folder">
           <label>
             SELECT FOLDER
