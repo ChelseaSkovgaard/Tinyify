@@ -4,6 +4,9 @@
   "private": true,
   "proxy": "http://localhost:3001",
   "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
+    "mocha": "^3.2.0",
     "nodemon": "^1.11.0",
     "react-scripts": "0.8.5"
   },
@@ -19,6 +22,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
+    "stest": "mocha",
     "eject": "react-scripts eject",
     "dev": "nodemon server/server.js"
   }

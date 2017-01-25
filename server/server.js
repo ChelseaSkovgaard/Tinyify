@@ -111,3 +111,5 @@ var port_number = process.env.PORT || 3001
 app.listen(port_number, function () {
   console.log('RrrarrrrRrrrr server alive on port 3001')
 })
+
+module.exports = app
