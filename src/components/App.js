@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from '../logo.svg';
 import '../App.css';
+import _ from 'lodash';
 import Form from "./Form";
 import LinkList from "./LinkList";
 
@@ -11,7 +12,7 @@ class App extends Component {
       folders: {
 
       },
-      selectedFolder: ''
+      urls: []
     }
   }
   componentDidMount(){
@@ -24,8 +25,20 @@ class App extends Component {
           folders:res
           }
         );
-        console.log(res);
       });
+      fetch(`/api/urls`)
+        .then((res)=>{
+          return res.json()
+        })
+        .then((res)=>{
+          this.setState({
+            urls: _.map(res, (item)=>{
+              return item
+            })
+            }
+          );
+        });
+
   }
   postNewFolder(e, folderName){
     e.preventDefault()
@@ -43,7 +56,7 @@ class App extends Component {
       return res.json()
     })
     .then((res)=>{
-      console.log(res);
+
     })
   }
   saveNewURL(e, folderID, URL){
@@ -74,7 +87,10 @@ class App extends Component {
           handleSaveURL={(e, folderID, URL)=>{this.saveNewURL(e, folderID, URL)}}
           folders={this.state.folders}
         />
-        <LinkList />
+        <LinkList
+          folders={this.state.folders}
+          urls={this.state.urls}
+        />
       </div>
     );
   }

@@ -10,7 +10,6 @@ class Form extends Component {
 
       let folderKeysArray = Object.keys(this.props.folders)
 
-      console.log(folderKeysArray);
       folderOptions = folderKeysArray.map((folderKey, i)=>{
           return <option key={i} value={`${folderKey}`}>{`${this.props.folders[folderKey]}`}</option>
       })

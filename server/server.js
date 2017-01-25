@@ -7,28 +7,6 @@ const md5 = require('md5');
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
-let urls=[{
-  shortURL: "shortURL!!",
-  realURL: "www.google.com",
-  folder: "Cool Links"
-},
-{
-  shortURL: "shortURL2",
-  realURL: "www.turing.io",
-  folder: "School"
-},
-{
-  shortURL: "shortURL3",
-  realURL: "www.react.com",
-  folder: "Codez"
-},
-{
-  shortURL: "shortURL4",
-  realURL:"www.funtimesturing.com",
-  folder: "School"
-}]
-
 app.locals.folders = {
   0: "initial folder",
   1: "second folder"
@@ -39,6 +17,20 @@ app.locals.urls = {
     folderid: "1",
     shorturl: 0,
     actualurl: 'www.google.com',
+    date: Date.now(),
+    clickCount: 0
+  },
+  1:{
+    folderid: "0",
+    shorturl: 2,
+    actualurl: 'www.googley.com',
+    date: Date.now(),
+    clickCount: 0
+  },
+  2:{
+    folderid: "1",
+    shorturl: 4,
+    actualurl: 'www.googled.com',
     date: Date.now(),
     clickCount: 0
   }
@@ -92,6 +84,12 @@ app.get('/api/folders/:folderid/:shorturl', (request, response) => {
   response.json(url)
 })
 
+app.get('/api/urls', (request, response) => {
+  const url = app.locals.urls
+
+  response.json(url)
+
+})
 app.use(express.static(path.resolve(__dirname, '..', 'build')));
 
 app.get('/', (req, res) => {
