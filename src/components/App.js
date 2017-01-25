@@ -81,7 +81,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <header>
+        <img src="./images/rocket.svg"/>
         <h1> JetFuel</h1>
+        </header>
         <Form
           handleSaveFolder={(e, folderName)=>{this.postNewFolder(e, folderName)}}
           handleSaveURL={(e, folderID, URL)=>{this.saveNewURL(e, folderID, URL)}}

@@ -47,7 +47,7 @@ app.post('/api/folders', (request, response) => {
   const id = md5(folderName);
   app.locals.folders[id] = folderName;
   response.json({ id, folderName})
-})
+});
 
 app.get('/api/folders/:id', (request, response) => {
   const {id} = request.params
@@ -57,7 +57,7 @@ app.get('/api/folders/:id', (request, response) => {
     response.sendStatus(404);
   }
   response.json({id, folder})
-})
+});
 
 app.post('/api/folders/:folderid', (request,response) => {
   const {folderid} = request.params
