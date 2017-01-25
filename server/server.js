@@ -77,18 +77,26 @@ app.post('/api/folders/:folderid', (request,response) => {
   response.json(app.locals.urls)
 });
 
+
+
 app.get('/api/folders/:folderid/:shorturl', (request, response) => {
   const {folderid, shorturl} = request.params
   const url = app.locals.urls[shorturl]
 
   response.json(url)
-})
+});
+
+app.patch('/api/urls/:id', (request, response) => {
+  const {id} = request.params
+
+  app.locals.urls[id].clickCount++
+
+  response.json(app.locals.urls[id].clickCount);
+});
 
 app.get('/api/urls', (request, response) => {
   const url = app.locals.urls
-
   response.json(url)
-
 })
 
 app.get('/a/:shorturl', (request, response) => {

@@ -38,7 +38,6 @@ class App extends Component {
             }
           );
         });
-
   }
   postNewFolder(e, folderName){
     e.preventDefault()
@@ -76,7 +75,7 @@ class App extends Component {
     })
     .then((res)=>{
       console.log(res);
-    })
+    });
   }
   render() {
     return (

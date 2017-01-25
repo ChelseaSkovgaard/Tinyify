@@ -11,7 +11,6 @@ class Folder extends Component {
         </a>
       </li>)
     });
-
         return (
       <div className="folder">
         <h4>{this.props.name} </h4>
