@@ -82,7 +82,7 @@ class App extends Component {
     return (
       <div className="App">
         <header>
-        <img src="./images/rocket.svg"/>
+        <img className="header-image" src="./images/rocket2.svg"/>
         <h1> JetFuel</h1>
         </header>
         <Form

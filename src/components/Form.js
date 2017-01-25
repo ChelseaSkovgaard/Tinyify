@@ -16,21 +16,21 @@ class Form extends Component {
     }
     return (
       <div className="Form">
-        <form>
+        <form className="new-folder">
           <label>
-            New Folder
+            ADD NEW FOLDER
             <input type="text" ref="folderInput"/>
           </label>
 
           <button
           onClick={(e)=>{this.props.handleSaveFolder(e, this.refs.folderInput.value)}}
           >
-            Save New Folder
+            SAVE
           </button>
         </form>
-        <form>
+        <form className="choose-folder">
           <label>
-            Choose Folder
+            SELECT FOLDER
             <select ref='folderOptions'>
               {folderOptions}
             </select>
@@ -42,7 +42,7 @@ class Form extends Component {
           <button
             onClick={(e)=>{this.props.handleSaveURL(e, this.refs.folderOptions.value, this.refs.URL.value)}}
           >
-            Submit
+            SUBMIT
           </button>
         </form>
       </div>
