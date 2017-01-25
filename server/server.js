@@ -20,14 +20,14 @@ app.locals.urls = {
     date: Date.now(),
     clickCount: 0
   },
-  1:{
+  2:{
     folderid: "0",
     shorturl: 2,
     actualurl: 'www.googley.com',
     date: Date.now(),
     clickCount: 0
   },
-  2:{
+  4:{
     folderid: "1",
     shorturl: 4,
     actualurl: 'www.googled.com',
@@ -90,6 +90,16 @@ app.get('/api/urls', (request, response) => {
   response.json(url)
 
 })
+
+app.get('/a/:shorturl', (request, response) => {
+  const {shorturl} = request.params
+
+  if(!app.locals.urls[shorturl]){
+    response.sendStatus(404)
+  }
+  response.redirect(`http://${app.locals.urls[shorturl].actualurl}`)
+})
+
 app.use(express.static(path.resolve(__dirname, '..', 'build')));
 
 app.get('/', (req, res) => {
