@@ -1,38 +1,29 @@
 import React, { Component } from 'react';
 
 class Form extends Component {
-  postNewURL(e){
-    e.preventDefault()
-    fetch(`/urls`, {
-      method: 'post',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        shortURL: "newURL",
-        realURL:"www.ohyeah.com",
-        folder: "Cool Links"
-      })
-    })
-    .then((res)=>{
-      return res.json()
-    })
-    .then((res)=>{
-      console.log(res);
-    })
+
+  componentDidMount(){
   }
   render() {
+    let folderOptions;
+    if(this.props.folders){
+
+      let folderKeysArray = Object.keys(this.props.folders)
+
+      folderOptions = folderKeysArray.map((folderKey, i)=>{
+          return <option key={i} value={`${folderKey}`}>{`${this.props.folders[folderKey]}`}</option>
+      })
+    }
     return (
       <div className="Form">
         <form>
           <label>
             New Folder
-            <input type="text"/>
+            <input type="text" ref="folderInput"/>
           </label>
 
           <button
-          onClick={(e)=>{this.postNewURL(e)}}
+          onClick={(e)=>{this.props.handleSaveFolder(e, this.refs.folderInput.value)}}
           >
             Save New Folder
           </button>
@@ -40,15 +31,17 @@ class Form extends Component {
         <form>
           <label>
             Choose Folder
-            <select>
-              <option value="option1"> Option1 </option>
+            <select ref='folderOptions'>
+              {folderOptions}
             </select>
           </label>
           <label>
             URL
-            <input type="text"/>
+            <input type="text" ref="URL"/>
           </label>
-          <button>
+          <button
+            onClick={(e)=>{this.props.handleSaveURL(e, this.refs.folderOptions.value, this.refs.URL.value)}}
+          >
             Submit
           </button>
         </form>
