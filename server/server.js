@@ -37,6 +37,43 @@ app.post('/api/folders', (request, response) => {
     })
 });
 
+app.get('/api/urls/:folder_id', (request, response) => {
+  database('urls').where('folder_id', request.params.folder_id).select()
+  .then(function(urls) {
+        response.status(200).json(urls);
+      })
+      .catch(function(error) {
+        console.error('somethings wrong with db')
+      });
+})
+
+app.post('/api/urls', (request, response) => {
+  const { id, actualurl, shorturl, clickCount, folder_id, created_at } = request.body;
+  const url = {id, actualurl, shorturl, clickCount, folder_id, created_at: new Date};
+  database('urls').insert(url)
+    .then(function(){
+      database('urls').select()
+        .then(function(urls){
+          response.status(200).json(urls)
+        })
+        .catch(function(error) {
+                    console.error('somethings wrong with db'+ error)
+                    response.status(404)
+                  });
+    })
+});
+
+app.delete('/api/urls/:id', (request, response) => {
+  const { id } = request.params
+
+  database('urls').where('id', id).first().del()
+    .then(function(url){
+      response.status(200).json({message: 'secret deleted'})
+    })
+})
+
+
+
 app.get('/api/folders/:id', (request, response) => {
   const {id} = request.params
   const folder = app.locals.folders[id]
