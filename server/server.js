@@ -14,11 +14,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get('/api/folders', (request, response) => {
   database('folders').select()
   .then(function(folders) {
-        response.status(200).json(folders);
-      })
-      .catch(function(error) {
-        console.error('somethings wrong with db')
-      });
+      response.status(200).json(folders);
+    })
+    .catch(function(error) {
+      console.error('somethings wrong with db')
+    });
 });
 
 app.post('/api/folders', (request, response) => {
@@ -33,8 +33,8 @@ app.post('/api/folders', (request, response) => {
         .catch(function(error) {
                     console.error('somethings wrong with db'+ error)
                     response.status(404)
-                  });
-    })
+        });
+    });
 });
 
 app.get('/api/urls/:folder_id', (request, response) => {
@@ -47,23 +47,47 @@ app.get('/api/urls/:folder_id', (request, response) => {
       });
 })
 
+function generateRandomString() {
+  let characterArray = []
+  for(var i = 0; i < 6; i++){
+    characterArray.push(String.fromCharCode(97 + Math.floor(Math.random()*25) +1 ))
+  }
+  return characterArray.join('')
+}
+
 app.post('/api/urls', (request, response) => {
   // const { actualurl, shorturl, clickCount, folder_id} = request.body;
   const { actualurl, clickCount, folder_id} = request.body;
-  let shorturl = md5(actualurl);
+  let string = generateRandomString();
+  // if()
 
-  const url = { actualurl, shorturl, clickCount, folder_id, created_at: new Date};
-  database('urls').insert(url)
-    .then(function(){
-      database('urls').select()
-        .then(function(urls){
-          response.status(200).json(urls)
-        })
-        .catch(function(error) {
-                    console.error('somethings wrong with db'+ error)
-                    response.status(404)
-                  });
+  database('urls').select('shorturl').then(function(res){
+    console.log(res);
+    let array = res.map((item)=>{
+      return item.shorturl
     })
+
+    while(array.includes(string)){
+        string = generateRandomString();
+        console.log(string);
+    }
+
+    let shorturl = string
+
+    const url = { actualurl, shorturl, clickCount, folder_id, created_at: new Date};
+    database('urls').insert(url)
+      .then(function(){
+        database('urls').select()
+          .then(function(urls){
+            response.status(200).json(urls)
+          })
+          .catch(function(error) {
+                      console.error('somethings wrong with db'+ error)
+                      response.status(404)
+                    });
+      })
+  })
+
 });
 
 app.delete('/api/urls/:id', (request, response) => {

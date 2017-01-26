@@ -3,7 +3,7 @@ exports.seed = function(knex, Promise) {
   .then(() => {
     return Promise.all([
       knex('urls').insert({
-        id: "HkrRLh2Ge",
+        id: 98,
         actualurl: "https://www.google.com",
         shorturl: 1,
         clickCount: 0,
@@ -11,7 +11,7 @@ exports.seed = function(knex, Promise) {
         created_at: new Date
       }),
       knex('urls').insert({
-        id: "Cilili123",
+        id: 1,
         actualurl: "https://www.amazon.com",
         shorturl: 2,
         clickCount: 0,
@@ -19,7 +19,7 @@ exports.seed = function(knex, Promise) {
         created_at: new Date
       }),
       knex('urls').insert({
-        id: "MkrKLh2Me",
+        id: 2,
         actualurl: "https://www.espn.com",
         shorturl: 3,
         clickCount: 0,
