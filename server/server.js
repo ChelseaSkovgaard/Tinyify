@@ -74,7 +74,8 @@ app.post('/api/urls', (request, response) => {
 
     let shorturl = string
 
-    const url = { actualurl, shorturl, clickCount, folder_id, created_at: new Date};
+    const url = { actualurl: `https://${actualurl}`, shorturl, clickCount,
+        folder_id, created_at: new Date};
     database('urls').insert(url)
       .then(function(){
         database('urls').select()
@@ -99,68 +100,75 @@ app.delete('/api/urls/:id', (request, response) => {
     })
 })
 
-
-
-app.get('/api/folders/:id', (request, response) => {
-  const {id} = request.params
-  const folder = app.locals.folders[id]
-
-  if(!folder){
-    response.sendStatus(404);
-  }
-  response.json({id, folder})
-});
-
-app.post('/api/folders/:folderid', (request,response) => {
-  const {folderid} = request.params
-  const {actualurl} = request.body
-
-  const id = md5(actualurl);
-  app.locals.urls[id] = {
-    folderid,
-    actualurl,
-    shorturl: app.locals.shortURL,
-    date: Date.now(),
-    clickCount: 0
-  }
-
-  app.locals.shortURL++
-
-  response.json(app.locals.urls)
-});
-
-
-app.get('/api/folders/:folderid/:shorturl', (request, response) => {
-  const {folderid, shorturl} = request.params
-  const url = app.locals.urls[shorturl]
-
-  response.json(url)
-});
-
-app.patch('/api/urls/:id', (request, response) => {
-  const {id} = request.params
-
-  app.locals.urls[id].clickCount++
-
-  response.json(app.locals.urls[id].clickCount);
-});
-
-app.get('/api/urls', (request, response) => {
-  const url = app.locals.urls
-  response.json(url)
-})
-
 app.get('/a/:shorturl', (request, response) => {
-  const {shorturl} = request.params
-
-  if(!app.locals.urls[shorturl]){
-    response.sendStatus(404)
-  }
-
-  app.locals.urls[shorturl].clickCount++
-
-  response.redirect(`http://${app.locals.urls[shorturl].actualurl}`)
+  database('urls').where('shorturl', request.params.shorturl).select()
+  .then(function(url) {
+      database('urls').where('shorturl', request.params.shorturl).update({
+        clickCount: url[0].clickCount+1
+      }).then(function(){
+        console.log(url);
+        response.redirect(`${url[0].actualurl}`)
+      })
+    })
 })
+
+
+
+//
+// app.get('/api/folders/:id', (request, response) => {
+//   const {id} = request.params
+//   const folder = app.locals.folders[id]
+//
+//   if(!folder){
+//     response.sendStatus(404);
+//   }
+//   response.json({id, folder})
+// });
+//
+// app.post('/api/folders/:folderid', (request,response) => {
+//   const {folderid} = request.params
+//   const {actualurl} = request.body
+//
+//   const id = md5(actualurl);
+//   app.locals.urls[id] = {
+//     folderid,
+//     actualurl,
+//     shorturl: app.locals.shortURL,
+//     date: Date.now(),
+//     clickCount: 0
+//   }
+//
+//   app.locals.shortURL++
+//
+//   response.json(app.locals.urls)
+// });
+//
+//
+// app.get('/api/folders/:folderid/:shorturl', (request, response) => {
+//   const {folderid, shorturl} = request.params
+//   const url = app.locals.urls[shorturl]
+//
+//   response.json(url)
+// });
+//
+// app.patch('/api/urls/:id', (request, response) => {
+//   const {id} = request.params
+//
+//   app.locals.urls[id].clickCount++
+//
+//   response.json(app.locals.urls[id].clickCount);
+// });
+//
+app.get('/api/urls', (request, response) => {
+  database('urls').select()
+  .then(function(urls) {
+      response.status(200).json(urls);
+    })
+    .catch(function(error) {
+      console.error('somethings wrong with db')
+    });
+})
+
 
 app.use(express.static(path.resolve(__dirname, '..', 'build')));
 

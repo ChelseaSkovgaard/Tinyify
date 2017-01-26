@@ -28,15 +28,21 @@ class Folder extends Component {
     })
   }
 }
+  redirectToUrl(shorturl){
+    fetch(`/a/${shorturl}`).then((res)=>{
+      console.log(res);
+    }).catch((error)=>{})
+  }
   render() {
     let urls;
     if(this.state.urls){
       urls = this.state.urls.map((url, i) => {
         return(
         <li key={i} className="url-link">
-          <a target="_blank" href={`https://${url.actualurl}`}>
+          <a target="_blank" href={`${url.actualurl}`} onClick={()=>{this.redirectToUrl(url.shorturl)}}>
             {url.shorturl}
           </a>
+          <p>Popularity: {url.clickCount} </p>
         </li>)
       });
     }

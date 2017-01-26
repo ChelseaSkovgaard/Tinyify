@@ -35,7 +35,7 @@ class Form extends Component {
             </select>
           </label>
           <label>
-            URL
+            URL https://
             <input type="text" ref="URL"/>
           </label>
           <button
