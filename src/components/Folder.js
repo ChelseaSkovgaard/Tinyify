@@ -5,8 +5,9 @@ class Folder extends Component {
   render() {
     console.log(this.props.urls);
     let urls = this.props.urls.map((url, i) => {
-    return(  <li key={i} className="url-link">
-        <a href={`https://${url.actualurl}`}>
+    return(
+      <li key={i} className="url-link">
+        <a href={`https://${url.actualurl}`} ref={url.id} onClick={(e) =>{this.props.incrementURLClicks(e)}}>
         {url.shorturl}
         </a>
       </li>)

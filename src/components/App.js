@@ -77,6 +77,22 @@ class App extends Component {
       console.log(res);
     });
   }
+  incrementURLClicks(e, urlID){
+    e.preventDefault();
+    fetch(`/api/urls/${urlID}`, {
+      method: 'patch',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
+    .then((res)=>{
+      return res.json()
+    })
+    .then((res) => {
+      console.log(res)
+    })
+  }
   render() {
     return (
       <div className="App">
@@ -92,6 +108,7 @@ class App extends Component {
         <LinkList
           folders={this.state.folders}
           urls={this.state.urls}
+          handleIncrementClicks={(e, urlID) => {this.incrementURLClicks(e, urlID)}}
         />
       </div>
     );
