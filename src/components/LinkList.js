@@ -27,9 +27,6 @@ class LinkList extends Component {
     let folders;
     if(this.props.folders){
       folders = this.props.folders.map((folder, i)=>{
-        // let filteredURLs = this.props.urls.filter((url)=>{
-        //   return url.folderid === folderKey
-        // })
         return <Folder key={i} sortOrder={this.state.sortOrder} folderID={folder.id} name={folder.name}/>
       })
     }

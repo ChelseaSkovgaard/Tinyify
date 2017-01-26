@@ -17,10 +17,8 @@ describe('GET /api/folders', function() {
     .get('/api/folders')
     .end(function(err, res) {
     res.should.have.status(200);
-    res.should.be.json; // jshint ignore:line
-    res.body.should.be.a('object');
-    res.body.should.have.property(0);
-    res.body.should.have.property(1);
+    res.should.be.json;
+    res.body.should.be.a('array');
     done();
     });
   });
@@ -28,73 +26,43 @@ describe('GET /api/folders', function() {
 
 describe('POST /api/folders', function() {
   it('should create a new folder', function(done) {
-    let folder = {0:'Fun Times'}
+    let folder = {folderName:'Fun Times'}
     chai.request(server)
     .post('/api/folders')
     .send(folder)
     .end(function(err, res) {
     res.should.have.status(200);
     res.should.be.json; // jshint ignore:line
-    res.body.should.be.a('object');
+    res.body.should.be.a('array');
     done();
     });
   });
 });
 
-describe('GET /api/folders/:id', function() {
-it('should return a single folder', function(done) {
+describe('GET /api/urls/:folder_id', function() {
+it('should return urls associated with a folder', function(done) {
   chai.request(server)
-  .get('/api/folders/0')
+  .get('/api/urls/1')
   .end(function(err, res) {
     res.should.have.status(200);
     res.should.be.json;
-    res.body.should.be.a('object');
-    res.body.should.have.property('id');
-    res.body.should.have.property('folder');
+    res.body.should.be.a('array');
     done();
   });
 });
 });
 
-describe('GET /api/folders/:folderid/:shorturl', function() {
-it('should return a single url', function(done) {
-  chai.request(server)
-  .get('/api/folders/0/2')
-  .end(function(err, res) {
+describe('POST /api/urls', function() {
+  it('should add a url', function(done) {
+    let url = {actualurl:'www.google.com', clickCount: 0, shorturl: '8', folder_id:1}
+    chai.request(server)
+    .post('/api/urls')
+    .send(url)
+    .end(function(err, res) {
     res.should.have.status(200);
-    res.should.be.json;
-    res.body.should.be.a('object');
-    res.body.should.have.property('folderid');
-    res.body.should.have.property('shorturl');
-    res.body.should.have.property('actualurl');
-    res.body.should.have.property('date');
-    res.body.should.have.property('clickCount');
+    res.should.be.json; // jshint ignore:line
+    res.body.should.be.a('array');
     done();
+    });
   });
-});
-});
-
-describe('GET /api/urls', function() {
-it('should return the urls', function(done) {
-  chai.request(server)
-  .get('/api/urls')
-  .end(function(err, res) {
-    res.should.have.status(200);
-    res.should.be.json;
-    res.body.should.be.a('object');
-    done();
-  });
-});
-});
-
-describe('GET /a/:shorturl', function() {
-it('should redirect the url', function(done) {
-  chai.request(server)
-  .get('/a/0')
-  .end(function(err, res) {
-    res.should.have.status(200);
-    res.should.be.html;
-    done();
-  });
-});
 });

@@ -12,6 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 app.get('/api/folders', (request, response) => {
+  console.log(environment);
   database('folders').select()
   .then(function(folders) {
       response.status(200).json(folders);
@@ -56,17 +57,14 @@ function generateRandomString() {
 }
 
 app.post('/api/urls', (request, response) => {
-  // const { actualurl, shorturl, clickCount, folder_id} = request.body;
   const { actualurl, clickCount, folder_id} = request.body;
   let string = generateRandomString();
-  // if()
 
   database('urls').select('shorturl').then(function(res){
     console.log(res);
     let array = res.map((item)=>{
       return item.shorturl
     })
-
     while(array.includes(string)){
         string = generateRandomString();
         console.log(string);
@@ -85,7 +83,7 @@ app.post('/api/urls', (request, response) => {
           .catch(function(error) {
                       console.error('somethings wrong with db'+ error)
                       response.status(404)
-                    });
+          });
       })
   })
 
@@ -113,52 +111,6 @@ app.get('/a/:shorturl', (request, response) => {
 })
 
 
-
-//
-// app.get('/api/folders/:id', (request, response) => {
-//   const {id} = request.params
-//   const folder = app.locals.folders[id]
-//
-//   if(!folder){
-//     response.sendStatus(404);
-//   }
-//   response.json({id, folder})
-// });
-//
-// app.post('/api/folders/:folderid', (request,response) => {
-//   const {folderid} = request.params
-//   const {actualurl} = request.body
-//
-//   const id = md5(actualurl);
-//   app.locals.urls[id] = {
-//     folderid,
-//     actualurl,
-//     shorturl: app.locals.shortURL,
-//     date: Date.now(),
-//     clickCount: 0
-//   }
-//
-//   app.locals.shortURL++
-//
-//   response.json(app.locals.urls)
-// });
-//
-//
-// app.get('/api/folders/:folderid/:shorturl', (request, response) => {
-//   const {folderid, shorturl} = request.params
-//   const url = app.locals.urls[shorturl]
-//
-//   response.json(url)
-// });
-//
-// app.patch('/api/urls/:id', (request, response) => {
-//   const {id} = request.params
-//
-//   app.locals.urls[id].clickCount++
-//
-//   response.json(app.locals.urls[id].clickCount);
-// });
-//
 app.get('/api/urls', (request, response) => {
   database('urls').select()
   .then(function(urls) {
