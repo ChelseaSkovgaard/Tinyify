@@ -106,7 +106,7 @@ app.get('/a/:shorturl', (request, response) => {
     response.sendStatus(404)
   }
   app.locals.urls[shorturl].clickCount++
-  
+
   response.redirect(`http://${app.locals.urls[shorturl].actualurl}`)
 })
 

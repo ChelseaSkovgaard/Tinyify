@@ -7,7 +7,7 @@ class Folder extends Component {
     let urls = this.props.urls.map((url, i) => {
     return(
       <li key={i} className="url-link">
-        <a href={`https://${url.actualurl}`}>
+        <a target="_blank" href={`https://${url.actualurl}`}>
         {url.shorturl}
         </a>
       </li>)
