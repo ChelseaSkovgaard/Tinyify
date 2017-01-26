@@ -23,7 +23,7 @@ app.locals.urls = {
   2:{
     folderid: "0",
     shorturl: 2,
-    actualurl: 'www.googley.com',
+    actualurl: 'www.amazon.com',
     date: Date.now(),
     clickCount: 0
   },
@@ -105,6 +105,8 @@ app.get('/a/:shorturl', (request, response) => {
   if(!app.locals.urls[shorturl]){
     response.sendStatus(404)
   }
+  app.locals.urls[shorturl].clickCount++
+  
   response.redirect(`http://${app.locals.urls[shorturl].actualurl}`)
 })
 
