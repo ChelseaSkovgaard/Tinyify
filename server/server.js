@@ -48,8 +48,11 @@ app.get('/api/urls/:folder_id', (request, response) => {
 })
 
 app.post('/api/urls', (request, response) => {
-  const { id, actualurl, shorturl, clickCount, folder_id, created_at } = request.body;
-  const url = {id, actualurl, shorturl, clickCount, folder_id, created_at: new Date};
+  // const { actualurl, shorturl, clickCount, folder_id} = request.body;
+  const { actualurl, clickCount, folder_id} = request.body;
+  let shorturl = md5(actualurl);
+
+  const url = { actualurl, shorturl, clickCount, folder_id, created_at: new Date};
   database('urls').insert(url)
     .then(function(){
       database('urls').select()
@@ -103,7 +106,6 @@ app.post('/api/folders/:folderid', (request,response) => {
 });
 
 
-
 app.get('/api/folders/:folderid/:shorturl', (request, response) => {
   const {folderid, shorturl} = request.params
   const url = app.locals.urls[shorturl]
@@ -130,6 +132,7 @@ app.get('/a/:shorturl', (request, response) => {
   if(!app.locals.urls[shorturl]){
     response.sendStatus(404)
   }
+
   app.locals.urls[shorturl].clickCount++
 
   response.redirect(`http://${app.locals.urls[shorturl].actualurl}`)

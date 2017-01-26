@@ -7,7 +7,8 @@ exports.up = function(knex, Promise) {
       table.timestamps();
     }),
     knex.schema.createTable('urls', function(table){
-      table.string('id').primary();
+      table.increments('id').primary();
+      // table.string('id').primary();
       table.string('actualurl');
       table.string('shorturl');
       table.integer('clickCount');
