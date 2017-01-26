@@ -12,15 +12,13 @@ class LinkList extends Component {
 
   }
   render() {
-
     let folders;
     if(this.props.folders){
-      let foldersArray = Object.keys(this.props.folders)
-      folders = foldersArray.map((folderKey, i)=>{
-        let filteredURLs = this.props.urls.filter((url)=>{
-          return url.folderid === folderKey
-        })
-        return <Folder key={i} urls={filteredURLs} name={this.props.folders[folderKey]}/>
+      folders = this.props.folders.map((folder, i)=>{
+        // let filteredURLs = this.props.urls.filter((url)=>{
+        //   return url.folderid === folderKey
+        // })
+        return <Folder key={i} folderID={folder.id} name={folder.name}/>
       })
     }
     return (

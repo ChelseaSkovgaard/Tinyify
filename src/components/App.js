@@ -9,9 +9,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      folders: {
-
-      },
+      folders: [],
       urls: []
     }
   }
@@ -26,18 +24,7 @@ class App extends Component {
           }
         );
       });
-      fetch(`/api/urls`)
-        .then((res)=>{
-          return res.json()
-        })
-        .then((res)=>{
-          this.setState({
-            urls: _.map(res, (item)=>{
-              return item
-            })
-            }
-          );
-        });
+
   }
   postNewFolder(e, folderName){
     e.preventDefault()
