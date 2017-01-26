@@ -5,13 +5,13 @@ class Folder extends Component {
   render() {
     console.log(this.props.urls);
     let urls = this.props.urls.map((url, i) => {
-    return(  <li key={i} className="url-link">
-        <a href={`https://${url.actualurl}`}>
+    return(
+      <li key={i} className="url-link">
+        <a target="_blank" href={`https://${url.actualurl}`}>
         {url.shorturl}
         </a>
       </li>)
     });
-
         return (
       <div className="folder">
         <h4>{this.props.name} </h4>

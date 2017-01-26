@@ -23,7 +23,7 @@ app.locals.urls = {
   2:{
     folderid: "0",
     shorturl: 2,
-    actualurl: 'www.googley.com',
+    actualurl: 'www.amazon.com',
     date: Date.now(),
     clickCount: 0
   },
@@ -47,7 +47,7 @@ app.post('/api/folders', (request, response) => {
   const id = md5(folderName);
   app.locals.folders[id] = folderName;
   response.json({ id, folderName})
-})
+});
 
 app.get('/api/folders/:id', (request, response) => {
   const {id} = request.params
@@ -57,7 +57,7 @@ app.get('/api/folders/:id', (request, response) => {
     response.sendStatus(404);
   }
   response.json({id, folder})
-})
+});
 
 app.post('/api/folders/:folderid', (request,response) => {
   const {folderid} = request.params
@@ -77,18 +77,26 @@ app.post('/api/folders/:folderid', (request,response) => {
   response.json(app.locals.urls)
 });
 
+
+
 app.get('/api/folders/:folderid/:shorturl', (request, response) => {
   const {folderid, shorturl} = request.params
   const url = app.locals.urls[shorturl]
 
   response.json(url)
-})
+});
+
+app.patch('/api/urls/:id', (request, response) => {
+  const {id} = request.params
+
+  app.locals.urls[id].clickCount++
+
+  response.json(app.locals.urls[id].clickCount);
+});
 
 app.get('/api/urls', (request, response) => {
   const url = app.locals.urls
-
   response.json(url)
-
 })
 
 app.get('/a/:shorturl', (request, response) => {
@@ -97,6 +105,8 @@ app.get('/a/:shorturl', (request, response) => {
   if(!app.locals.urls[shorturl]){
     response.sendStatus(404)
   }
+  app.locals.urls[shorturl].clickCount++
+
   response.redirect(`http://${app.locals.urls[shorturl].actualurl}`)
 })
 

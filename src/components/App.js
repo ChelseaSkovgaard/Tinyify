@@ -38,7 +38,6 @@ class App extends Component {
             }
           );
         });
-
   }
   postNewFolder(e, folderName){
     e.preventDefault()
@@ -76,12 +75,16 @@ class App extends Component {
     })
     .then((res)=>{
       console.log(res);
-    })
+    });
   }
+
   render() {
     return (
       <div className="App">
+        <header>
+        <img className="header-image" src="./images/rocket2.svg"/>
         <h1> JetFuel</h1>
+        </header>
         <Form
           handleSaveFolder={(e, folderName)=>{this.postNewFolder(e, folderName)}}
           handleSaveURL={(e, folderID, URL)=>{this.saveNewURL(e, folderID, URL)}}
