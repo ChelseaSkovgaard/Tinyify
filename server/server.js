@@ -3,51 +3,79 @@ var app = express()
 var bodyParser = require('body-parser');
 const path = require('path');
 const md5 = require('md5');
+const environment = process.env.NODE_ENV || 'development';
+const configuration = require('../knexfile')[environment];
+const database = require('knex')(configuration);
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.locals.folders = {
-  0: "initial folder",
-  1: "second folder"
-};
-
-app.locals.urls = {
-  0:{
-    folderid: "1",
-    shorturl: 0,
-    actualurl: 'www.google.com',
-    date: Date.now(),
-    clickCount: 0
-  },
-  2:{
-    folderid: "0",
-    shorturl: 2,
-    actualurl: 'www.amazon.com',
-    date: Date.now(),
-    clickCount: 0
-  },
-  4:{
-    folderid: "1",
-    shorturl: 4,
-    actualurl: 'www.googled.com',
-    date: Date.now(),
-    clickCount: 0
-  }
-}
-
-app.locals.shortURL = 0;
 
 app.get('/api/folders', (request, response) => {
-  response.json(app.locals.folders);
+  database('folders').select()
+  .then(function(folders) {
+        response.status(200).json(folders);
+      })
+      .catch(function(error) {
+        console.error('somethings wrong with db')
+      });
 });
 
 app.post('/api/folders', (request, response) => {
   const { folderName } = request.body;
-  const id = md5(folderName);
-  app.locals.folders[id] = folderName;
-  response.json({ id, folderName})
+  const folder = {name: folderName, created_at: new Date};
+  database('folders').insert(folder)
+    .then(function(){
+      database('folders').select()
+        .then(function(folders){
+          response.status(200).json(folders)
+        })
+        .catch(function(error) {
+                    console.error('somethings wrong with db'+ error)
+                    response.status(404)
+                  });
+    })
 });
+
+app.get('/api/urls/:folder_id', (request, response) => {
+  database('urls').where('folder_id', request.params.folder_id).select()
+  .then(function(urls) {
+        response.status(200).json(urls);
+      })
+      .catch(function(error) {
+        console.error('somethings wrong with db')
+      });
+})
+
+app.post('/api/urls', (request, response) => {
+  // const { actualurl, shorturl, clickCount, folder_id} = request.body;
+  const { actualurl, clickCount, folder_id} = request.body;
+  let shorturl = md5(actualurl);
+
+  const url = { actualurl, shorturl, clickCount, folder_id, created_at: new Date};
+  database('urls').insert(url)
+    .then(function(){
+      database('urls').select()
+        .then(function(urls){
+          response.status(200).json(urls)
+        })
+        .catch(function(error) {
+                    console.error('somethings wrong with db'+ error)
+                    response.status(404)
+                  });
+    })
+});
+
+app.delete('/api/urls/:id', (request, response) => {
+  const { id } = request.params
+
+  database('urls').where('id', id).first().del()
+    .then(function(url){
+      response.status(200).json({message: 'secret deleted'})
+    })
+})
+
+
 
 app.get('/api/folders/:id', (request, response) => {
   const {id} = request.params
@@ -78,7 +106,6 @@ app.post('/api/folders/:folderid', (request,response) => {
 });
 
 
-
 app.get('/api/folders/:folderid/:shorturl', (request, response) => {
   const {folderid, shorturl} = request.params
   const url = app.locals.urls[shorturl]
@@ -105,6 +132,7 @@ app.get('/a/:shorturl', (request, response) => {
   if(!app.locals.urls[shorturl]){
     response.sendStatus(404)
   }
+
   app.locals.urls[shorturl].clickCount++
 
   response.redirect(`http://${app.locals.urls[shorturl].actualurl}`)

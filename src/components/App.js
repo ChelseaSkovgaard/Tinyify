@@ -9,10 +9,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      folders: {
-
-      },
-      urls: []
+      folders: []
     }
   }
   componentDidMount(){
@@ -26,18 +23,7 @@ class App extends Component {
           }
         );
       });
-      fetch(`/api/urls`)
-        .then((res)=>{
-          return res.json()
-        })
-        .then((res)=>{
-          this.setState({
-            urls: _.map(res, (item)=>{
-              return item
-            })
-            }
-          );
-        });
+
   }
   postNewFolder(e, folderName){
     e.preventDefault()
@@ -55,19 +41,24 @@ class App extends Component {
       return res.json()
     })
     .then((res)=>{
-
+      this.setState({
+        folders:res
+        }
+      );
     })
   }
   saveNewURL(e, folderID, URL){
     e.preventDefault()
-    fetch(`/api/folders/${folderID}`, {
+    fetch(`/api/urls`, {
       method: 'post',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        actualurl: URL
+        actualurl: URL,
+        folder_id: folderID,
+        clickCount: 0
       })
     })
     .then((res)=>{
