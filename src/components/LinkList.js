@@ -5,11 +5,23 @@ class LinkList extends Component {
   constructor() {
     super();
     this.state = {
-      urls: []
+      urls: [],
+      sortOrder: 'desc'
     }
   }
   componentDidMount(){
 
+  }
+  toggleSortOrder(){
+    if(this.state.sortOrder === 'asc'){
+      this.setState({
+        sortOrder: 'desc'
+      })
+    } else {
+      this.setState({
+        sortOrder: 'asc'
+      })
+    }
   }
   render() {
     let folders;
@@ -18,11 +30,14 @@ class LinkList extends Component {
         // let filteredURLs = this.props.urls.filter((url)=>{
         //   return url.folderid === folderKey
         // })
-        return <Folder key={i} folderID={folder.id} name={folder.name}/>
+        return <Folder key={i} sortOrder={this.state.sortOrder} folderID={folder.id} name={folder.name}/>
       })
     }
     return (
       <div className="LinkList">
+
+        <button onClick={()=>{this.toggleSortOrder()}}>Sort</button>
+
         <h3> SAVED LINKS </h3>
         {folders}
       </div>
