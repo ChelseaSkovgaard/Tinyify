@@ -1,0 +1,20 @@
+.LinkList{
+}
+
+.folder{
+  margin: auto;
+  border: 1px solid azure;
+  border-radius: 5px;
+  width: 400px;
+  background-color: #ecf0f1;
+}
+
+.folder:hover{
+  cursor: pointer;
+  background-color: #bdc3c7;
+}
+
+.url-link{
+  width: 80%;
+  border-bottom: 1px dotted #2c3e50;
+}
