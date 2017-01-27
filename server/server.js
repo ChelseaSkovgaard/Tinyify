@@ -58,13 +58,12 @@ app.post('/api/urls', (request, response) => {
   const { actualurl, clickCount, folder_id} = request.body;
   let string = generateRandomString();
   database('urls').select('shorturl').then(function(res){
-    console.log(res);
     let array = res.map((item)=>{
       return item.shorturl;
     });
     while(array.includes(string)){
-        string = generateRandomString();
-        console.log(string);
+      string = generateRandomString();
+
     }
     let shorturl = string
     const url = { actualurl: `https://${actualurl}`, shorturl, clickCount,
@@ -112,7 +111,6 @@ app.get('/api/urls', (request, response) => {
     console.error('somethings wrong with db');
   });
 });
-
 
 app.use(express.static(path.resolve(__dirname, '..', 'build')));
 
