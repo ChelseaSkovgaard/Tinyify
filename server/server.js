@@ -10,9 +10,7 @@ const database = require('knex')(configuration);
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
 app.get('/api/folders', (request, response) => {
-  console.log(environment);
   database('folders').select()
   .then(function(folders) {
       response.status(200).json(folders);
@@ -104,7 +102,6 @@ app.get('/a/:shorturl', (request, response) => {
       database('urls').where('shorturl', request.params.shorturl).update({
         clickCount: url[0].clickCount+1
       }).then(function(){
-        console.log(url);
         response.redirect(`${url[0].actualurl}`)
       })
     })
