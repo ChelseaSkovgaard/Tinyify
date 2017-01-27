@@ -1,3 +1,5 @@
+@import './links.css';
+
 .App {
   text-align: center;
 }
@@ -5,7 +7,7 @@
 body {
   font-family: sans-serif;
   background-color: #494949;
-  color: #D8D8D8;
+  color: #7f8c8d;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -20,6 +22,11 @@ h3 {
   color: #FF9700;
 }
 
+h4{
+  color: #F11717;
+  text-align: left;
+  margin-left: 20px;
+}
 .header-image {
   width: 100px;
   height: auto;
@@ -53,10 +60,14 @@ li, ul {
 }
 
 li {
-  margin-left: 300px;
+  list-style: none;
 }
 
 a {
+  margin: 5px;
+  color: #9b59b6;
+}
 
-  color: #D8D8D8;
+p{
+  margin: 5px;
 }
