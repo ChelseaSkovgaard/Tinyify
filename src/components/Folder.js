@@ -32,7 +32,6 @@ class Folder extends Component {
 }
   redirectToUrl(shorturl){
     fetch(`/a/${shorturl}`).then((res)=>{
-      console.log(res);
     }).catch((error)=>{})
   }
 
