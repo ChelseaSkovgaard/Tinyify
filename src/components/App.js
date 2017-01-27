@@ -10,7 +10,7 @@ class App extends Component {
     super();
     this.state = {
       folders: []
-    }
+    };
   }
   componentDidMount(){
     fetch(`/api/folders`)
@@ -45,7 +45,7 @@ class App extends Component {
         folders:res
         }
       );
-    })
+    });
   }
   saveNewURL(e, folderID, URL){
     e.preventDefault()
@@ -62,10 +62,7 @@ class App extends Component {
       })
     })
     .then((res)=>{
-      return res.json()
-    })
-    .then((res)=>{
-      console.log(res);
+      return res.json();
     });
   }
 
@@ -73,8 +70,8 @@ class App extends Component {
     return (
       <div className="App">
         <header>
-        <img className="header-image" src="./images/rocket2.svg"/>
-        <h1> JetFuel</h1>
+          <img className="header-image" src="./images/rocket2.svg"/>
+          <h1>JetFuel</h1>
         </header>
         <Form
           handleSaveFolder={(e, folderName)=>{this.postNewFolder(e, folderName)}}

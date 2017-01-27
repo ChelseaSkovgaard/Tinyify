@@ -7,20 +7,18 @@ class LinkList extends Component {
     this.state = {
       urls: [],
       sortOrder: 'desc'
-    }
+    };
   }
-  componentDidMount(){
 
-  }
   toggleSortOrder(){
     if(this.state.sortOrder === 'asc'){
       this.setState({
         sortOrder: 'desc'
-      })
+      });
     } else {
       this.setState({
         sortOrder: 'asc'
-      })
+      });
     }
   }
   render() {
@@ -32,9 +30,7 @@ class LinkList extends Component {
     }
     return (
       <div className="LinkList">
-
         <button onClick={()=>{this.toggleSortOrder()}}>Sort</button>
-
         <h3> SAVED LINKS </h3>
         {folders}
       </div>

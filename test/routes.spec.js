@@ -32,7 +32,7 @@ describe('POST /api/folders', function() {
     .send(folder)
     .end(function(err, res) {
     res.should.have.status(200);
-    res.should.be.json; // jshint ignore:line
+    res.should.be.json;
     res.body.should.be.a('array');
     done();
     });
@@ -48,8 +48,8 @@ it('should return urls associated with a folder', function(done) {
     res.should.be.json;
     res.body.should.be.a('array');
     done();
+    });
   });
-});
 });
 
 describe('POST /api/urls', function() {
@@ -61,6 +61,32 @@ describe('POST /api/urls', function() {
     .end(function(err, res) {
     res.should.have.status(200);
     res.should.be.json; // jshint ignore:line
+    res.body.should.be.a('array');
+    done();
+    });
+  });
+});
+
+describe('DELETE /api/urls/:id', function() {
+it('should return urls associated with a folder', function(done) {
+  chai.request(server)
+  .delete('/api/urls/2')
+  .end(function(err, res) {
+    res.should.have.status(200);
+    res.should.be.json;
+    res.body.should.be.a('object');
+    done();
+    });
+  });
+});
+
+describe('GET /api/urls', function() {
+it('should return all the urls', function(done) {
+  chai.request(server)
+  .get('/api/urls')
+  .end(function(err, res) {
+    res.should.have.status(200);
+    res.should.be.json;
     res.body.should.be.a('array');
     done();
     });
