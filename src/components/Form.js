@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 
 class Form extends Component {
-
-  componentDidMount(){
-  }
   render() {
     let folderOptions;
     if(this.props.folders){
-
       folderOptions = this.props.folders.map((folder, i)=>{
           return <option key={i} value={`${folder.id}`}>{`${folder.name}`}</option>
       })

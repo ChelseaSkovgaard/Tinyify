@@ -9,26 +9,25 @@ class Folder extends Component {
       urls: [],
       showUrls: false,
       sortOrder: "desc"
-    }
+    };
   }
   fetchUrls(){
     if(!this.state.showUrls){
       fetch(`/api/urls/${this.props.folderID}`)
       .then((res)=>{
-        return res.json()
+        return res.json();
       })
       .then((res)=>{
         this.setState({
           urls: res,
           showUrls: true
-        }
-        );
+      });
     });
   } else {
     this.setState({
       urls: [],
       showUrls: false
-    })
+    });
   }
 }
   redirectToUrl(shorturl){
@@ -37,14 +36,12 @@ class Folder extends Component {
     }).catch((error)=>{})
   }
 
-
   render() {
     let urls;
     if(this.state.urls){
-      urls = this.state.urls
-      urls = _.orderBy(urls, "clickCount", [this.props.sortOrder])
+      urls = this.state.urls;
+      urls = _.orderBy(urls, "clickCount", [this.props.sortOrder]);
       urls = urls.map((url, i) => {
-
         return(
         <li key={i} className="url-link">
           <a target="_blank" href={`${url.actualurl}`} onClick={()=>{this.redirectToUrl(url.shorturl)}}>
