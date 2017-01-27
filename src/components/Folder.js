@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
+import _ from "lodash";
+import moment from "moment";
 
 class Folder extends Component {
   constructor() {
     super();
     this.state = {
       urls: [],
-      showUrls: false
+      showUrls: false,
+      sortOrder: "desc"
     }
   }
   fetchUrls(){
@@ -28,15 +31,27 @@ class Folder extends Component {
     })
   }
 }
+  redirectToUrl(shorturl){
+    fetch(`/a/${shorturl}`).then((res)=>{
+      console.log(res);
+    }).catch((error)=>{})
+  }
+
+
   render() {
     let urls;
     if(this.state.urls){
-      urls = this.state.urls.map((url, i) => {
+      urls = this.state.urls
+      urls = _.orderBy(urls, "clickCount", [this.props.sortOrder])
+      urls = urls.map((url, i) => {
+
         return(
         <li key={i} className="url-link">
-          <a target="_blank" href={`https://${url.actualurl}`}>
+          <a target="_blank" href={`${url.actualurl}`} onClick={()=>{this.redirectToUrl(url.shorturl)}}>
             {url.shorturl}
           </a>
+          <p>Date Added: {moment(url.created_at).format('MM/DD/YYYY')}</p>
+          <p>Popularity: {url.clickCount} </p>
         </li>)
       });
     }
