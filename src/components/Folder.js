@@ -8,7 +8,8 @@ class Folder extends Component {
     this.state = {
       urls: [],
       showUrls: false,
-      sortOrder: "desc"
+      sortOrder: "desc",
+      sortDate: "desc"
     };
   }
   fetchUrls(){
@@ -35,11 +36,40 @@ class Folder extends Component {
     }).catch((error)=>{})
   }
 
+  toggleSortOrder(){
+    if(this.state.sortOrder === 'asc'){
+      this.setState({
+        sortOrder: 'desc'
+      });
+    } else {
+      this.setState({
+        sortOrder: 'asc'
+      });
+    }
+    let urls = this.state.urls
+    let popularityurls = _.orderBy(urls, "clickCount", [this.state.sortOrder]);
+    this.setState({urls: popularityurls});
+  }
+
+  toggleSortDate(){
+    if(this.state.sortDate === 'asc'){
+      this.setState({
+        sortDate: 'desc'
+      });
+    } else {
+      this.setState({
+        sortDate: 'asc'
+      });
+    }
+    let urls = this.state.urls
+    let dateurls = _.orderBy(urls, "created_at", [this.state.sortDate]);
+    this.setState({urls: dateurls});
+  }
+
   render() {
     let urls;
     if(this.state.urls){
       urls = this.state.urls;
-      urls = _.orderBy(urls, "clickCount", [this.props.sortOrder]);
       urls = urls.map((url, i) => {
         return(
         <li key={i} className="url-link">
@@ -52,8 +82,14 @@ class Folder extends Component {
       });
     }
       return (
-      <div className="folder" onClick={()=>{this.fetchUrls()}}>
-        <h4>{this.props.name} </h4>
+      <div className="folder" >
+        <h4 onClick={()=>{this.fetchUrls()}}>{this.props.name} </h4>
+        <button className="sort-btn" onClick={()=>{this.toggleSortOrder()}}>
+          Sort By Popularity
+        </button>
+        <button className="sort-btn" onClick={()=>{this.toggleSortDate()}}>
+          Sort By Date
+        </button>
         <ul className="url-list">
           {urls}
         </ul>
