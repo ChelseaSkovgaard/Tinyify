@@ -1,0 +1,49 @@
+h4 {
+  color: #F11717;
+  text-align: center;
+  margin: 12px;
+  font-size: 20px;
+}
+
+li, ul {
+  text-align: left;
+}
+
+li {
+  list-style: none;
+  margin-top: 5px;
+}
+
+a {
+  margin: 5px;
+  color: #FF5900;
+}
+
+a:hover {
+  color: #8e44ad;
+}
+
+p {
+  margin: 5px;
+}
+
+.folder{
+  margin: auto;
+  border: 1px solid azure;
+  border-radius: 5px;
+  width: 400px;
+  background-color: #ecf0f1;
+}
+
+.folder:hover{
+  cursor: pointer;
+}
+
+.url-link{
+  width: 80%;
+  border-bottom: 1px dotted #2c3e50;
+}
+
+.sort-btn {
+  margin: 5px;
+}

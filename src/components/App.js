@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import logo from '../logo.svg';
-import '../App.css';
 import _ from 'lodash';
 import Form from "./Form";
 import LinkList from "./LinkList";

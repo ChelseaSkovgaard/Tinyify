@@ -66,7 +66,7 @@ app.post('/api/urls', (request, response) => {
 
     }
     let shorturl = string
-    const url = { actualurl: `https://${actualurl}`, shorturl, clickCount,
+    const url = { actualurl: `http://${actualurl}`, shorturl, clickCount,
         folder_id, created_at: new Date};
     database('urls').insert(url)
       .then(function(){
