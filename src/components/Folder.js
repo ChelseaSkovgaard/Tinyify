@@ -81,15 +81,23 @@ class Folder extends Component {
         </li>)
       });
     }
+    let sortButtons;
+    if(this.state.showUrls){
+      sortButtons = (
+        <div>
+          <button className="sort-btn" onClick={()=>{this.toggleSortOrder()}}>
+            Sort By Popularity
+          </button>
+          <button className="sort-btn" onClick={()=>{this.toggleSortDate()}}>
+            Sort By Date
+          </button>
+        </div>
+      )
+    }
       return (
       <div className="folder" >
         <h4 onClick={()=>{this.fetchUrls()}}>{this.props.name} </h4>
-        <button className="sort-btn" onClick={()=>{this.toggleSortOrder()}}>
-          Sort By Popularity
-        </button>
-        <button className="sort-btn" onClick={()=>{this.toggleSortDate()}}>
-          Sort By Date
-        </button>
+        {sortButtons}
         <ul className="url-list">
           {urls}
         </ul>
