@@ -36,6 +36,14 @@ app.post('/api/folders', (request, response) => {
     });
 });
 
+app.delete('/api/folders/:id', (request, response) => {
+  const { id } = request.params
+  database('folders').where('id', id).first().del()
+    .then(function(url){
+      response.status(200).json({message: 'folder deleted'});
+    });
+});
+
 app.get('/api/urls/:folder_id', (request, response) => {
   database('urls').where('folder_id', request.params.folder_id).select()
   .then(function(urls) {
@@ -66,7 +74,7 @@ app.post('/api/urls', (request, response) => {
 
     }
     let shorturl = string
-    const url = { actualurl: `https://${actualurl}`, shorturl, clickCount,
+    const url = { actualurl: `http://${actualurl}`, shorturl, clickCount,
         folder_id, created_at: new Date};
     database('urls').insert(url)
       .then(function(){
@@ -89,6 +97,8 @@ app.delete('/api/urls/:id', (request, response) => {
       response.status(200).json({message: 'secret deleted'});
     });
 });
+
+
 
 app.get('/a/:shorturl', (request, response) => {
   database('urls').where('shorturl', request.params.shorturl).select()

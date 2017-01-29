@@ -17,7 +17,9 @@ class Form extends Component {
           </label>
 
           <button
-          onClick={(e)=>{this.props.handleSaveFolder(e, this.refs.folderInput.value)}}
+          onClick={(e)=>{this.props.handleSaveFolder(e, this.refs.folderInput.value)
+          this.refs.folderInput.value = ''
+          }}
           >
             SAVE
           </button>
@@ -35,7 +37,9 @@ class Form extends Component {
             <input type="text" ref="URL"/>
           </label>
           <button
-            onClick={(e)=>{this.props.handleSaveURL(e, this.refs.folderOptions.value, this.refs.URL.value)}}
+            onClick={(e)=>{this.props.handleSaveURL(e, this.refs.folderOptions.value, this.refs.URL.value)
+            this.refs.URL.value = ''
+            }}
           >
             SUBMIT
           </button>
