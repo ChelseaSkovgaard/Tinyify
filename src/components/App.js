@@ -22,6 +22,7 @@ class App extends Component {
         );
       });
   }
+
   postNewFolder(e, folderName){
     e.preventDefault()
     fetch(`/api/folders`, {
