@@ -37,8 +37,13 @@ class App extends Component {
       <div className="App">
         <header>
           <img className="header-image" src="./images/rocket2.svg"/>
-          <h1>JetFuel</h1>
+          <h1>Tinify</h1>
+          <p className="header-tagline">
+            A URL shortener that creates shortened links that can be saved
+            and shared
+          </p>
         </header>
+
         <Form
           handleSaveFolder={(e, folderName, res) => {postNewFolder(e, folderName, this.setFolderState(res))}}
           handleSaveURL={(e, folderID, URL) => {saveNewURL(e, folderID, URL)}}

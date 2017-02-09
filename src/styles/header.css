@@ -5,11 +5,13 @@
 #F2A104 */
 
 h1 {
-  color: #F11717;
+  color: #192E58;
   font-size: 50px;
-  display: inline-block;
-  vertical-align: top;
-  margin-left: 20px;
+}
+
+.header-tagline {
+  color: #192E58;
+  font-size: 20px;
 }
 
 .header-image {
