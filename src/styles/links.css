@@ -1,8 +1,14 @@
+/*#192E58
+#1D65A6
+#72A2C0
+#00743F
+#F2A104 */
+
 h4 {
-  color: #F11717;
+  color: #1D65A6;
   text-align: center;
-  margin: 12px;
-  font-size: 20px;
+  font-size: 18px;
+  padding: 5px;
 }
 
 li, ul {
@@ -16,11 +22,11 @@ li {
 
 a {
   margin: 5px;
-  color: #FF5900;
+  color: #1D65A6;
 }
 
 a:hover {
-  color: #8e44ad;
+  color: #F2A104;
 }
 
 p {
@@ -28,11 +34,11 @@ p {
 }
 
 .folder{
-  margin: auto;
+  margin: 10px 50px;
   border: 1px solid azure;
   border-radius: 5px;
-  width: 400px;
-  background-color: #ecf0f1;
+  width: 250px;
+  display: inline-block;
 }
 
 .folder:hover{
@@ -45,5 +51,16 @@ p {
 }
 
 .sort-btn {
-  margin: 5px;
+  margin: 12px;
+  font-size: 14px;
+  background-color: #1D65A6;
+  color: white;
+  width: 100px;
+}
+
+.link-list h3 {
+  margin: 20px;
+  font-weight: bold;
+  color: #192E58;
+  font-size: 18px;
 }

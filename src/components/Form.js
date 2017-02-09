@@ -9,7 +9,7 @@ class Form extends Component {
       })
     }
     return (
-      <div className="Form">
+      <div className="form">
         <form className="new-folder">
           <label>
             ADD NEW FOLDER
@@ -24,16 +24,16 @@ class Form extends Component {
             SAVE
           </button>
         </form>
-        <h3> Save & Shorten a Link </h3>
+
         <form className="choose-folder">
-          <label>
+          <label className="select-folder">
             SELECT FOLDER
             <select ref='folderOptions'>
               {folderOptions}
             </select>
           </label>
-          <label>
-            URL https://
+          <label className="url-input">
+            URL TO SHORTEN https://
             <input type="text" ref="URL"/>
           </label>
           <button

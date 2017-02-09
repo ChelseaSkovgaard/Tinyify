@@ -20,7 +20,7 @@ class LinkList extends Component {
       })
     }
     return (
-      <div className="LinkList">
+      <div className="link-list">
         <h3> SAVED FOLDERS </h3>
         { folders }
       </div>

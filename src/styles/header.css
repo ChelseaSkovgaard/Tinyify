@@ -4,9 +4,15 @@
 #00743F
 #F2A104 */
 
+header {
+  margin: 10px 20px;
+}
 h1 {
   color: #192E58;
   font-size: 50px;
+  font-family: sans-serif;
+  font-weight: bold;
+  margin-bottom: 16px;
 }
 
 .header-tagline {

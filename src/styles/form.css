@@ -5,22 +5,40 @@
 #F2A104 */
 
 
-h3 {
-  color: #FF9700;
+label {
+  font-size: 16px;
+  color: white;
 }
 
-label {
-  padding: 10px;
-  margin: 5px;
-  font-size: 16px;
-  color: #D8D8D8;
+form {
+  margin-left: 50px;
 }
 
 .new-folder, .choose-folder {
   padding: 10px;
 }
 
+.select-folder {
+  display: block;
+  margin: 5px;
+}
+
+.select-folder select {
+  color: #1D65A6;
+}
+
+.url-input {
+  display: inline-block;
+}
+
+
 input, select {
   margin: 10px;
   font-size: 16px;
+}
+
+input {
+  background-color: transparent;
+  border: none;
+  border-bottom: #1D65A6 3px solid;
 }
