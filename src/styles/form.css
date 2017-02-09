@@ -1,19 +1,36 @@
-h3 {
-  color: #FF9700;
+label {
+  font-size: 16px;
+  color: white;
 }
 
-label {
-  padding: 10px;
-  margin: 5px;
+form {
+  margin-left: 50px;
+}
+
+input, select {
+  margin: 10px;
   font-size: 16px;
-  color: #D8D8D8;
+}
+
+input {
+  background-color: transparent;
+  border: none;
+  border-bottom: #1D65A6 3px solid;
 }
 
 .new-folder, .choose-folder {
   padding: 10px;
 }
 
-input, select {
-  margin: 10px;
-  font-size: 16px;
+.select-folder {
+  display: block;
+  margin: 5px;
+}
+
+.select-folder select {
+  color: #1D65A6;
+}
+
+.url-input {
+  display: inline-block;
 }

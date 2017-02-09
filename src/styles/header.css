@@ -1,9 +1,18 @@
+header {
+  margin: 10px 20px;
+}
 h1 {
-  color: #F11717;
-  font-size: 50px;
-  display: inline-block;
-  vertical-align: top;
-  margin-left: 20px;
+  color: #192E58;
+  font-size: 60px;
+  font-family: sans-serif;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.header-tagline {
+  color: #192E58;
+  font-size: 20px;
+  margin-left: 30px;
 }
 
 .header-image {

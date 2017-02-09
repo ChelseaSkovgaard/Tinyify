@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import Form from "./Form";
 import LinkList from "./LinkList";
+import postNewFolder from '../posting-functions/postFolder';
+import saveNewURL from '../posting-functions/postUrl';
 
 class App extends Component {
   constructor() {
@@ -10,6 +12,7 @@ class App extends Component {
       folders: []
     };
   }
+
   componentDidMount(){
     fetch(`/api/folders`)
       .then((res)=>{
@@ -23,44 +26,9 @@ class App extends Component {
       });
   }
 
-  postNewFolder(e, folderName){
-    e.preventDefault()
-    fetch(`/api/folders`, {
-      method: 'post',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        folderName
-      })
-    })
-    .then((res)=>{
-      return res.json()
-    })
-    .then((res)=>{
-      this.setState({
-        folders:res
-        }
-      );
-    });
-  }
-  saveNewURL(e, folderID, URL){
-    e.preventDefault()
-    fetch(`/api/urls`, {
-      method: 'post',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        actualurl: URL,
-        folder_id: folderID,
-        clickCount: 0
-      })
-    })
-    .then((res)=>{
-      return res.json();
+  setFolderState(res) {
+    this.setState({
+      folders:res
     });
   }
 
@@ -68,12 +36,17 @@ class App extends Component {
     return (
       <div className="App">
         <header>
-          <img className="header-image" src="./images/rocket2.svg"/>
-          <h1>JetFuel</h1>
+
+          <h1><img className="header-image" src="./images/mouse.svg"/>Tinify</h1>
+          <p className="header-tagline">
+            A URL shortener that creates tiny links that can be saved
+            and shared
+          </p>
         </header>
+
         <Form
-          handleSaveFolder={(e, folderName)=>{this.postNewFolder(e, folderName)}}
-          handleSaveURL={(e, folderID, URL)=>{this.saveNewURL(e, folderID, URL)}}
+          handleSaveFolder={(e, folderName, res) => {postNewFolder(e, folderName, this.setFolderState(res))}}
+          handleSaveURL={(e, folderID, URL) => {saveNewURL(e, folderID, URL)}}
           folders={this.state.folders}
         />
         <LinkList

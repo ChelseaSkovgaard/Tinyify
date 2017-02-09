@@ -11,8 +11,6 @@ class LinkList extends Component {
     };
   }
 
-  
-
   render() {
     let folders;
     if(this.props.folders){
@@ -22,12 +20,12 @@ class LinkList extends Component {
       })
     }
     return (
-      <div className="LinkList">
-
+      <div className="link-list">
         <h3> SAVED FOLDERS </h3>
-        {folders}
+        { folders }
       </div>
     );
   }
 }
+
 export default LinkList;
