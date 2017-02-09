@@ -36,7 +36,8 @@ class App extends Component {
     return (
       <div className="App">
         <header>
-          <h1>Tinify</h1>
+
+          <h1><img className="header-image" src="./images/mouse.svg"/>Tinify</h1>
           <p className="header-tagline">
             A URL shortener that creates tiny links that can be saved
             and shared
