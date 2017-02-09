@@ -26,6 +26,11 @@ class App extends Component {
       });
   }
 
+  createFolder(e, folderName){
+    e.preventDefault();
+    postNewFolder(folderName, this.setFolderState.bind(this))
+  }
+
   setFolderState(res) {
     this.setState({
       folders:res
@@ -45,7 +50,7 @@ class App extends Component {
         </header>
 
         <Form
-          handleSaveFolder={(e, folderName, res) => {postNewFolder(e, folderName, this.setFolderState(res))}}
+          handleSaveFolder={(e, folderName) => {this.createFolder(e, folderName)}}
           handleSaveURL={(e, folderID, URL) => {saveNewURL(e, folderID, URL)}}
           folders={this.state.folders}
         />

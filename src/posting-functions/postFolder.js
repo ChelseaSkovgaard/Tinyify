@@ -1,5 +1,4 @@
-module.exports = function postNewFolder (e, folderName, callback) {
-  e.preventDefault()
+module.exports = function postNewFolder (folderName, callback) {
   fetch(`/api/folders`, {
     method: 'post',
     headers: {
